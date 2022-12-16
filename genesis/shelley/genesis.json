@@ -1,0 +1,116 @@
+{
+  "activeSlotsCoeff": 0.1,
+  "epochLength": 3600,
+  "genDelegs": {
+    "9d489445a91017ed0f1cc9d06dc71fd9ded6222d1b518b67deab016b": {
+      "delegate": "ce62e8de62dfb4c0800290588f59cf088ab472fc1ff648ac89dd4b62",
+      "vrf": "3cbfe0c5d0f0823f9688f35e84a8530d07aea2ab022362b98cffa63c2e10c133"
+    },
+    "caea0e20de75094585f21d424aab04c5a94a4c04b4b672973debd998": {
+      "delegate": "67afd3e15eeedf8619a148a3e7cd2ea87793d95a632d991d7ca2eb15",
+      "vrf": "9d8b01c2c0996849a08fc3dc0d3a6445751101acb4da2047141f17136e492ca7"
+    },
+    "d512e24b6fe8d5c955c4dde5ee8ce275bbe00715dc7de5ded3dde79b": {
+      "delegate": "b54daffff64d13930bac3ea88f9be39e10350a292dde1cd1f291d187",
+      "vrf": "2c43c5b5cfa6b355b302308c86d002ee7fb9801b3d9962f0a430f3ec455bdb0c"
+    }
+  },
+  "initialFunds": {
+    "0126364b93ba196a61f4aba2f95b61106811afe9496d2034f0df1fda763f917e7913aeef8f6699771b33bf76a353fcb92235e037d1965319d2": 27000000000000,
+    "01333bb647dac3de0ed6070db572e309e6774daf8970cdd2499f6b012f04692fb1a7e06f085fdbf513970b3e9263e5dff960841efd4d9c51aa": 27000000000000,
+    "01df6ebf8a8e202f0ac6b50e1007b7b177b5abe0fa8a49f86a13fd1caa350333aeb3f5a5c813aeea003a86d5f6ddb857a9d92b5b4d0872ae97": 27000000000000,
+    "61d8b14057308644896445e4e36cc97d9dca0f1ca10628236e8eda04fd": 27000000000000,
+    "61d8cc3350182d1d610df98c699ecbf6fb8ad7aac5046cb245d82d471a": 27000000000000,
+    "61eb47a0f13248a52f77a3310e1ed2e3be9619f2f1c55e5fcf7b6a0c3b": 27000000000000
+  },
+  "maxKESEvolutions": 60,
+  "maxLovelaceSupply": 1e+16,
+  "networkId": "Mainnet",
+  "networkMagic": 1764824073,
+  "protocolParams": {
+    "a0": 0,
+    "decentralisationParam": 0.7,
+    "eMax": 18,
+    "extraEntropy": {
+      "tag": "NeutralNonce"
+    },
+    "keyDeposit": 0,
+    "maxBlockBodySize": 65536,
+    "maxBlockHeaderSize": 1100,
+    "maxTxSize": 16384,
+    "minFeeA": 44,
+    "minFeeB": 155381,
+    "minPoolCost": 0,
+    "minUTxOValue": 1000000,
+    "nOpt": 100,
+    "poolDeposit": 0,
+    "protocolVersion": {
+      "major": 7,
+      "minor": 0
+    },
+    "rho": 0.001,
+    "tau": 0.2
+  },
+  "securityParam": 10,
+  "slotLength": 1,
+  "slotsPerKESPeriod": 129600,
+  "staking": {
+    "pools": {
+      "2be286d8c53980d7c640a1355d1bc57281ff27d80a05529a56b7ab9c": {
+        "cost": 0,
+        "margin": 0,
+        "metadata": null,
+        "owners": [],
+        "pledge": 0,
+        "publicKey": "2be286d8c53980d7c640a1355d1bc57281ff27d80a05529a56b7ab9c",
+        "relays": [],
+        "rewardAccount": {
+          "credential": {
+            "key hash": "1faf8c977e949d887c2693e67c4c75ecbda4f6f69d1382475ddcf19a"
+          },
+          "network": "Mainnet"
+        },
+        "vrf": "dedce1109937888ee9448c22c2b63139b8a222c1eb0467c45862b4a0951c44b3"
+      },
+      "d69b3920fea815b12b07c285c908bbe315f9c0cff4bb5d056f2865cd": {
+        "cost": 0,
+        "margin": 0,
+        "metadata": null,
+        "owners": [],
+        "pledge": 0,
+        "publicKey": "d69b3920fea815b12b07c285c908bbe315f9c0cff4bb5d056f2865cd",
+        "relays": [],
+        "rewardAccount": {
+          "credential": {
+            "key hash": "26e64d8ddf14140b2363c42279737a780a4022008d7d0e3968dd24ba"
+          },
+          "network": "Mainnet"
+        },
+        "vrf": "7be72ebcfc361a56c9d7df04ba805869d9aba0e6bb795b45a09b180bf3ba66bf"
+      },
+      "f8cff045f363f6065415dfe1c584eb2081668e888619b50da3f46728": {
+        "cost": 0,
+        "margin": 0,
+        "metadata": null,
+        "owners": [],
+        "pledge": 0,
+        "publicKey": "f8cff045f363f6065415dfe1c584eb2081668e888619b50da3f46728",
+        "relays": [],
+        "rewardAccount": {
+          "credential": {
+            "key hash": "083c346f330f674cc48e673837c13c7f45af56ce33f75c2f5dbca5b7"
+          },
+          "network": "Mainnet"
+        },
+        "vrf": "16324326dc4474d14dd407b56ac2c3793e55155338f6e3832cf90b0a47f531de"
+      }
+    },
+    "stake": {
+      "04692fb1a7e06f085fdbf513970b3e9263e5dff960841efd4d9c51aa": "f8cff045f363f6065415dfe1c584eb2081668e888619b50da3f46728",
+      "350333aeb3f5a5c813aeea003a86d5f6ddb857a9d92b5b4d0872ae97": "d69b3920fea815b12b07c285c908bbe315f9c0cff4bb5d056f2865cd",
+      "3f917e7913aeef8f6699771b33bf76a353fcb92235e037d1965319d2": "2be286d8c53980d7c640a1355d1bc57281ff27d80a05529a56b7ab9c"
+    }
+  },
+  "systemStart": "2022-12-03T10:51:21Z",
+  "updateQuorum": 2
+}
