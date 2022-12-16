@@ -64,24 +64,48 @@ But, how can I see my forkano wallet address?
 
 You can quit gLiveView pressing 'q' key or open a new terminal
 
-Then run 
+Then enter the Forkano container running the node
 ```bash
 ./03-join-forkano_node.sh
+ - You will be inside the container running the node, then
 cd ~
+./01-check-balance.sh
+```
+ 
+This script will show your pool address, and will check the current balance
+Once you have funds in that address you can continue with next step
+
+```bash
 # (yes... you MUST edit POOL_ vars befor running, lines ~52-58)
 # You'll access MC Editor, find those lines and edit according to your needs
 # Press F2 to save and F10 to exit when done
-mcedit ./forkano_init/scripts/01-pools/01-register-new-pool.sh
+mcedit ./forkano_init/scripts/01-pools/02-register-new-pool.sh
 # Now run
-./forkano_init/scripts/01-pools/01-register-new-pool.sh 
+./forkano_init/scripts/01-pools/02-register-new-pool.sh 
+```
+
+If this script finishes with no error now you are able to run the pool by daemonizing the docker container
+
+# Daemonizing your node
+Kill/exit/end every docker container and run from inside the genesis dir
+```bash
+./01-run-forkano_node_daemon.sh
+```
+
+# Accessing your daemonized node
+```bash
+./03-join-forkano_node.sh
+```
+
+# Tailing logs
+```bash
+./02-tail-forkano_node.sh (this will tail logs from inside the daemonized container)
+./02-tail-local.sh (this will tail logs from your local data directory)
 ```
 
 
 
-If this script finishes with no error now you are able to run the pool by daemonizing the docker container:
-Kill/exit/end every docker container and run `01-run-forkano_node_daemon.sh`
-
-Once your pool is registered, you can check the status by running `./forkano_init/scripts/01-pools/02-query-pool-details.sh` script inside the container image
+Once your pool is registered, you can check the status by running `./forkano_init/scripts/01-pools/03-query-pool-details.sh` script inside the container image
 
 And again, you can check KES status, Block producing status, and everything else with gLiveView!
 
@@ -94,4 +118,11 @@ And again, you can check KES status, Block producing status, and everything else
 
 **ADA Address over Cardano Network**: addr1qxtdszvk7y5py6yu6yka27fsxpej5c33cu570fk6zg7tshwpkr4eltx90uad3gx4pr6s747vc94g26954lpk06swhcnsdqv0c9
 
+
+
+## Securing your keys
+
+It's up to you where/how do you keep your keys safe!
+
+Your private keys could be stored in a cold environment and then deleted from your node
 
