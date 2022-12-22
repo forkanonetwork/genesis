@@ -1,10 +1,5 @@
-CONTAINER_NAME=forkano_node
-PORT=3004
-LOCAL_DIR=$(pwd)
-DATA_DIR="${LOCAL_DIR}/../data"
-VOLUME_INIT=--volume=${LOCAL_DIR}:/home/forkano/forkano_init
-VOLUME_DATA=--volume=${DATA_DIR}:/home/forkano/git/forkano-babbage
-DOCKER_USER=forkano
+#!/bin/bash 
+source common_vars.sh
 
 echo "################## IF YOU ARE RUNNING THIS SCRIPT FOR THE FIRST TIME ##################"
 echo "This script will create ${DATA_DIR} directory for persistant data from the forkano node"
