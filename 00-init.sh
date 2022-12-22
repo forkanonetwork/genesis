@@ -1,5 +1,5 @@
-CONTAINER_NAME=forkano_node_test
-PORT=3005
+CONTAINER_NAME=forkano_node
+PORT=3004
 LOCAL_DIR=$(pwd)
 DATA_DIR="${LOCAL_DIR}/../data"
 VOLUME_INIT=--volume=${LOCAL_DIR}:/home/forkano/forkano_init
@@ -24,28 +24,35 @@ echo "################## IF YOU ALREADY RUN THIS SCRIPT BEFORE #################
 echo ""
 echo ""
 echo ""
-echo "If you want to continue then write 'YES' and press enter, otherwise just Ctrl+C or ENTER"
+echo "If you want to continue then write YES (uppercase only) and press ENTER, otherwise just press Ctrl+C or ENTER"
 read REPLY
 
 set -e
 
 if [ -z $REPLY ]; then
-    echo "Ok, see you soon!"
+    echo "© Ok, see you soon!"
         exit 0
 else
     if [ $REPLY == "YES" ]; then
-      echo "I'll ask for superuser password ONCE for data deletion"
+      echo "© I'll ask for superuser password ONCE for data deletion"
       set +e
       sudo rm -r ${DATA_DIR}
       set -e
       mkdir ${DATA_DIR}
       chmod 777 ${DATA_DIR}
+    else
+        echo "© Oh :( I was expecting YES but I understand your choice!"
+        echo "© See ya later then"
+        exit 0
     fi
 fi 
 
+set +e
 docker container stop ${CONTAINER_NAME}
 docker container rm ${CONTAINER_NAME}
+set -e
 
+echo "© It could take some time for the image to be downloaded, please be patient :)"
 docker run --user ${DOCKER_USER} \
 --name=${CONTAINER_NAME} ${VOLUME_INIT} ${VOLUME_DATA} \
 -p ${PORT}:${PORT} \
