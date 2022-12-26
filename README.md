@@ -33,7 +33,7 @@ That's your node syncing with Forkano mainnet!
 
 Now you must wait for this to finish in order to register a new stake pool. Refer to **gLiveView Section** in order to monitor your pool and know when it finishes syncing.
 
-#### In the meantime you can donate some BTC, USDT or ADA to this project!. Check **Contributing section** for detailed info!
+#### In the meantime you can donate some BTC, USDT or ADA to this project! Check **Contributing section** for donation addresses!
 
 
 ## gLiveView
