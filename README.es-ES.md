@@ -1,117 +1,113 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/forkanonetwork/genesis/blob/main/README.md)
 [![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/forkanonetwork/genesis/blob/main/README.es-ES.md)
 
-# Forkano node and staking pool operation
-## This repo includes
-    - Genesis data from forkano network
-    - Scripts to deploy and run a node and (optional) a stake pool
+# Operando un nodo de Forkano y creando un Pool de Staking + Nodo Productor de Bloques
+## Este repositorio incluye
+    - Información "Génesis" de Forkano Network
+    - Scripts para desplegar y correr un nodo y (opcionalmente) un pool de delegaciones)
 
 
-## Installation
-### Dependencies/Requirements:
-- docker installed
-- Storage: 3 GB free for image and data
-- RAM: 2 GB at least for proper running
-- Internet connection
-- Optional: 1 (ONE) port forwarding for incoming connections
+## Instalación
+### Dependencias/Requerimientos:
+- Tener docker instalado y funcionando
+- 3 GB de almacenamiento disponible para la imagen docker y la información de la blockchain
+- 2 GM de RAM como mínimo para que se ejecute correctamente
+- Conexión a internet
+- Abrir un puerto para recibir conexiones entrantes (obligatorio sólo si se quiere recibir recompensas)
 
-###    Linux instructions
+### Instrucciones para Linux
 
-
-Clone this repository **and _be noticed!: this is experimental, only for educational purposes_**
+Clonar este repositorio **¡Está advertido! _este proyecto es experimental, sólo para fines educativos_**
 ```bash
 git clone https://github.com/forkanonetwork/genesis.git
 cd genesis
 ./00-init.sh
 ```
 
-This could take some time, docker image (~2.5 GB) needs to be downloaded the first time!
+¡Esto podría tomar algo de tiempo, la imagen de docker (~2.5 GB) va a ser descargada por primera vez!
 
-If things go well _(means you're lucky)_ you'll see this kind of output:
+Si todo sale bien _(lo que significa "suerte")_ verás una salida en la pantalla de este tipo:
 
 `Chain extended, new tip: ba3e79a37d5c31a4db0ef8bbc122fe769d080f1bc77e7e7c66b3a89ccdfa0e70 at slot 11`
 
-That's your node syncing with Forkano mainnet!
+¡Ese es tu nuevo nodo sincronizándose con la red principal de Forkano!
 
-Now you must wait for this to finish in order to register a new stake pool. Refer to **gLiveView Section** in order to monitor your pool and know when it finishes syncing.
+Ahora deberá esperar a que termine de sincronizar para poder registrar un nuevo pool de stakin. Refiérase a la **Sección gLiveView** para poder monitorear su nodo y saber cuándo terminó de sincronizar.
 
-#### In the meantime you can donate some BTC, USDT or ADA to this project! Check **Contributing section** for donation addresses!
+#### Mientras tanto puede ir donando algo de BTC, USDT or ADA para mantener este proyecto. Refiérase a la **Sección Contribuir** para las direcciones donde donar
 
 
 ## gLiveView
 
-
-After you've donated some (or not, as you wish, _remember the educational purposes_) you can check the status of your node by opening a second terminal and then run
+Luego de que haya donado (o no, como desee, _recuerde los fines educativos_) puede revisar el estado de su nodo abriendo una segunda terminal y ejecutando
 
 ```bash
 cd genesis
 ./02-gLiveView-forkano_node.sh
 ```
-Hopefulley, you will see the following panel:
+Con suerte verá el siguiente panel:
 
 
 ![imagen](https://user-images.githubusercontent.com/1715667/207903021-916bae11-71fc-4faf-890d-f1a934a09a1b.png)
 
-Once the **"Syncing"** reaches "100%" you'll be able to perform the next **optional** operations
+Una vez que **"Syncing"** alcance el "100%" podrá continuar ejecutando las siguientes operaciones **opcionales**
 
-## Registering your pool as a Block Producing Node
-* * MANDATORY: you must forward a port directly to the machine running the docker container in order to receive incoming connections from other Forkano Nodes
-* Your node could receive delegators!
-* Your node will earn rewards **in CAP (the Forkano main native asset)** for producing blocks!
-* You will have to provide your node's forkano wallet address in order to receive initial funds from us, by filling THIS FORM
-* You must keep an eye on your node ir order to assure propperly funtioning 
-* You will need to rotate the KES keys (script is provided, don't worry)
+## Registrando su nodo como un pool de staking y Nodo Productor de Bloques
+* * OBLIGATORIO: debe abrir un puerto directamente a la máquina ejecutando este contenedor de docker para poder recibir conexiones entrantes de otros nodos de Forkano Network. Si no lo hace **podrá operar pero sin recibir recompensas**.
+* Su nodo podrá recibir delegaciones!
+* ¡Su nodo ganará recompensas **en CAP (el token o moneda nativa de la red Forkano)** al producir bloques! (Sólo si ha permitido conexiones entrantes de otros nodos)
+* Deberá proveer una dirección de la billetera de su nodo para poder recibir fondos iniciales. Esto lo hará completando el SIGUIENTE FORMULARIO (disponible próximamente)
+* Debe monitorear su nodo para asegurar el correcto funcionamiento
+* Eventualmente deberá rotar sus claves KES (no se preocupe, ¡también hay un script para ello!)
 
-But, how can I see my forkano wallet address?
+### Pero, ¿cómo puedo ver la dirección de la billetera de mi nodo?
 
-You can quit gLiveView pressing 'q' key or open a new terminal
+Puede salir de gLiveVew presionando 'q' o directamente abriendo otra terminal
 
-Then enter the Forkano container running the node
+Luego acceda al contenedor corriendo el nodo ejecutando lo siguiente
 ```bash
 ./03-join-forkano_node.sh
- - You will be inside the container running the node, then
+ - Ahora está dentro del contenedor corriendo el nodo, ejecute
 cd ~
 ./01-check-balance.sh
 ```
  
-This script will show your pool address, and will check the current balance
-Once you have funds in that address you can continue with next step
+Este script va a mostrar en pantalla la dirección de su nodo y revisará el balance actual
+Una vez que tenga fondos en esa dirección podrá continuar con el siguiente paso
 
 ```bash
-# (yes... you MUST edit POOL_ vars befor running, lines ~52-58)
-# You'll access MC Editor, find those lines and edit according to your needs
-# Press F2 to save and F10 to exit when done
+# (así es... es OBLIGATORIO editar las variables que comienzan con POOL_ antes de ejecutar, lineas ~52-58)
+# Este comando abrirá un editor (MC Editor), debe buscar esas líneas y editarlas de acuerdo a sus necesidades
+# Para grabar presione F2 y para salir de la edición presione F1'
 mcedit ./forkano_init/scripts/01-pools/02-register-new-pool.sh
-# Now run
+# Luego ejecute
 ./forkano_init/scripts/01-pools/02-register-new-pool.sh 
 ```
 
-If this script finishes with no error now you are able to run the pool by daemonizing the docker container
+Si este script finaliza sin errores, ahora podrá "demonizar" (hacer que se autoejecute) el contenedor docker
 
-# Daemonizing your node
-Kill/exit/end every docker container and run from inside the genesis dir
+# Demonizando el nodo
+Salir de todas las terminales y contenedores de docker y ejecute desde el directorio genesis el siguiente comando
 ```bash
 ./01-run-forkano_node_daemon.sh
 ```
 
-# Accessing your daemonized node
+# Accediendo a su nodo "demonizado"
 ```bash
 ./03-join-forkano_node.sh
 ```
 
-# Tailing logs
+# Revisando los logs
 ```bash
-./02-tail-forkano_node.sh (this will tail logs from inside the daemonized container)
-./02-tail-local.sh (this will tail logs from your local data directory)
+./02-tail-forkano_node.sh (esto monitoreará las "colas" de los logs desde dentro del container demonizado)
+./02-tail-local.sh (esto monitoreará las "colas" de los logs desde su directorio local)
 ```
 
+Una vez que su pool ha sido registrado, podrá revisar el estado del mismo ejecutando el script `./forkano_init/scripts/01-pools/03-query-pool-details.sh` desde dentro del contenedor demonizado
 
+Y, nuevamente, ¡puede revisar el estado de las llaves KES, de los bloques producidos, conexiones, etcétera, con gLiveView!
 
-Once your pool is registered, you can check the status by running `./forkano_init/scripts/01-pools/03-query-pool-details.sh` script inside the container image
-
-And again, you can check KES status, Block producing status, and everything else with gLiveView!
-
-## Contributing
+## Contribuir
 
 
 **BTC Address**: bc1qe4wre8qwtav3krd3psxyk3cfpyyrmjhdu5p7jt
@@ -122,9 +118,8 @@ And again, you can check KES status, Block producing status, and everything else
 
 
 
-## Securing your keys
+## Asegurando las llaves
 
-It's up to you where/how do you keep your keys safe!
-
-Your private keys could be stored in a cold environment and then deleted from your node
-
+**¡Es SU responsabilidad dónde/cómo guarda de manera segura sus llaves!**
+Sus llaves privadas pueden ser almacenadas en un entorno "frío" y borradas del nodo.
+Sólo serán requeridas para firmar transacciones (por ejemplo al rotar las llaves KES(
