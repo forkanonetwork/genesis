@@ -1,3 +1,6 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/forkanonetwork/genesis/README.md)
+[![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/forkanonetwork/genesis/edit/main/README.es-ES.md)
+
 
 # Forkano node and staking pool operation
 ## This repo includes
