@@ -61,12 +61,17 @@ if [ -z $POOL_ID ]; then
     exit 1
 fi
 
-ID=$POOL_ID
-
 STAKE_BASE_DIR=${ROOT}/multi-staking/${POOL_ID}
 ADDR_DIR=${STAKE_BASE_DIR}/addresses
 COLD_KEY_DIR=${STAKE_BASE_DIR}/cold-keys
 KEY_DIR=${STAKE_BASE_DIR}/keys
+
+if [ -d ${STAKE_BASE_DIR} ]; then
+  echo "You've already delegated to the pool ${POOL_ID}, exiting NOW!"
+  exit 1
+else 
+  echo "Ok, delegating to ${POOL_ID}"
+fi
 
 PAYMENT_KEY="${ADDR_DIR}/payment"
 STAKE_KEY="${KEY_DIR}/stake"
