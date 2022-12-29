@@ -63,8 +63,8 @@ fi
 
 STAKE_BASE_DIR=${ROOT}/multi-staking/${POOL_ID}
 ADDR_DIR=${STAKE_BASE_DIR}/addresses
-COLD_KEY_DIR=${STAKE_BASE_DIR}/cold-keys
-KEY_DIR=${STAKE_BASE_DIR}/keys
+CERTS_DIR=${STAKE_BASE_DIR}/certs
+KEYS_DIR=${STAKE_BASE_DIR}/keys
 
 if [ -d ${STAKE_BASE_DIR} ]; then
   echo "You've already delegated to the pool ${POOL_ID}, exiting NOW!"
@@ -73,55 +73,50 @@ else
   echo "Ok, delegating to ${POOL_ID}"
 fi
 
-PAYMENT_KEY="${ADDR_DIR}/payment"
-STAKE_KEY="${KEY_DIR}/stake"
-COLD_KEY="${COLD_KEY_DIR}/cold"
-VRF_KEY="${KEY_DIR}/vrf"
-
 a0_create_directories() {
   set +e
   rm -r ${STAKE_BASE_DIR}
   mkdir ${STAKE_BASE_DIR} -p
   mkdir ${ADDR_DIR} -p
-  mkdir ${COLD_KEY_DIR} -p
-  mkdir ${KEY_DIR} -p
+  mkdir ${CERTS_DIR} -p
+  mkdir ${KEYS_DIR} -p
   set -e
 }
 
 a1_create_keys() {
   # PaymentStakeStake keys
   forkano-cli address key-gen \
-	--verification-key-file ${PAYMENT_KEY}.vkey \
-	--signing-key-file ${PAYMENT_KEY}.skey
+	--verification-key-file ${KEYS_DIR}/payment.vkey \
+	--signing-key-file ${KEYS_DIR}/payment.skey
 
   # Stake keys
   forkano-cli stake-address key-gen \
-	--verification-key-file ${STAKE_KEY}.vkey \
-	--signing-key-file ${STAKE_KEY}.skey
+	--verification-key-file ${KEYS_DIR}/staking.vkey \
+	--signing-key-file ${KEYS_DIR}/staking.skey
 
   # Payment addresses
   forkano-cli address build \
-        --payment-verification-key-file ${PAYMENT_KEY}.vkey \
-        --stake-verification-key-file ${STAKE_KEY}.vkey \
+        --payment-verification-key-file ${KEYS_DIR}/payment.vkey \
+        --stake-verification-key-file ${KEYS_DIR}/staking.vkey \
         --mainnet \
         --out-file ${ADDR_DIR}/payment.addr
 
   # Stake addresses
   forkano-cli stake-address build \
-        --stake-verification-key-file ${STAKE_KEY}.vkey \
+        --stake-verification-key-file ${KEYS_DIR}/staking.vkey \
         --mainnet \
         --out-file ${ADDR_DIR}/staking.addr
 
   # Stake addresses registration certs
   forkano-cli stake-address registration-certificate \
-        --stake-verification-key-file ${STAKE_KEY}.vkey \
-        --out-file ${ADDR_DIR}/staking_registration.cert
+        --stake-verification-key-file ${KEYS_DIR}/staking.vkey \
+        --out-file ${CERTS_DIR}/staking_registration.cert
 
   # Create delegation certificate
   forkano-cli stake-address delegation-certificate \
-      --stake-verification-key-file ${STAKE_KEY}.vkey \
+      --stake-verification-key-file ${KEYS_DIR}/staking.vkey \
       --stake-pool-id ${POOL_ID} \
-      --out-file ${ADDR_DIR}/staking_delegation.cert
+      --out-file ${CERTS_DIR}/staking_delegation.cert
 
 }
 
@@ -176,8 +171,8 @@ a2_submit_certs() {
     --tx-out ${ADDRESS}+0 \
     --ttl 0 \
     --fee 0 \
-    --certificate-file ${ADDR_DIR}/staking_registration.cert \
-    --certificate-file ${ADDR_DIR}/staking_delegation.cert \
+    --certificate-file ${CERTS_DIR}/staking_registration.cert \
+    --certificate-file ${CERTS_DIR}/staking_delegation.cert \
     --out-file tx.raw
 
   forkano-cli query protocol-parameters \
@@ -210,15 +205,15 @@ a2_submit_certs() {
     --tx-out ${ADDRESS}+${CHANGE} \
     --invalid-hereafter $(( ${currentSlot} +10000)) \
     --fee $FEE \
-    --certificate-file ${ADDR_DIR}/staking_registration.cert \
-    --certificate-file ${ADDR_DIR}/staking_delegation.cert \
+    --certificate-file ${CERTS_DIR}/staking_registration.cert \
+    --certificate-file ${CERTS_DIR}/staking_delegation.cert \
     --out-file tx.raw
 
   echo "Signing transaction"
   forkano-cli transaction sign \
     --tx-body-file tx.raw \
-    --signing-key-file ${PAYMENT_KEY}.skey \
-    --signing-key-file ${STAKE_KEY}.skey \
+    --signing-key-file ${KEYS_DIR}/payment.skey \
+    --signing-key-file ${KEYS_DIR}/staking.skey \
     --mainnet \
     --out-file tx.signed
 
