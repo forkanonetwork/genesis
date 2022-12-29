@@ -1,5 +1,7 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/forkanonetwork/genesis/blob/main/README.md)
+[![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/forkanonetwork/genesis/blob/main/README.es-ES.md)
 
-# Forkano node and staking pool operation
+# Forkano node and staking pool operation + block producer node
 ## This repo includes
     - Genesis data from forkano network
     - Scripts to deploy and run a node and (optional) a stake pool
@@ -31,9 +33,9 @@ If things go well _(means you're lucky)_ you'll see this kind of output:
 
 That's your node syncing with Forkano mainnet!
 
-Now you must wait for this to finish in order to register a new stake pool. Refer to **gLiveView Section** in order to monitor your pool and know when it finishes syncing.
+Now you must wait for this to finish in order to register a new stake pool. Refer to **gLiveView Section** in order to monitor your node and know when it finishes syncing.
 
-#### In the meantime you can donate some BTC, USDT or ADA to this project!. Check **Contributing section** for detailed info!
+#### In the meantime you can donate some BTC, USDT or ADA to this project! Check **Contributing section** for donation addresses!
 
 
 ## gLiveView
@@ -45,7 +47,7 @@ After you've donated some (or not, as you wish, _remember the educational purpos
 cd genesis
 ./02-gLiveView-forkano_node.sh
 ```
-Hopefulley, you will see the following panel:
+Hopefully, you will see the following panel:
 
 
 ![imagen](https://user-images.githubusercontent.com/1715667/207903021-916bae11-71fc-4faf-890d-f1a934a09a1b.png)
@@ -53,10 +55,10 @@ Hopefulley, you will see the following panel:
 Once the **"Syncing"** reaches "100%" you'll be able to perform the next **optional** operations
 
 ## Registering your pool as a Block Producing Node
-* * MANDATORY: you must forward a port directly to the machine running the docker container in order to receive incoming connections from other Forkano Nodes
+* * MANDATORY: you must forward a port directly to the machine running the docker container in order to receive incoming connections from other Forkano Nodes. If you don't allow access from the other nodes, you'll be able to operate normally but **you won't receive rewards for producing blocks!**
 * Your node could receive delegators!
 * Your node will earn rewards **in CAP (the Forkano main native asset)** for producing blocks!
-* You will have to provide your node's forkano wallet address in order to receive initial funds from us, by filling THIS FORM
+* You will have to provide your node's forkano wallet address in order to receive initial funds from us, by filling THIS FORM (available soon)
 * You must keep an eye on your node ir order to assure propperly funtioning 
 * You will need to rotate the KES keys (script is provided, don't worry)
 
@@ -76,7 +78,7 @@ This script will show your pool address, and will check the current balance
 Once you have funds in that address you can continue with next step
 
 ```bash
-# (yes... you MUST edit POOL_ vars befor running, lines ~52-58)
+# (yes... you MUST edit POOL_ vars before running, lines ~52-58)
 # You'll access MC Editor, find those lines and edit according to your needs
 # Press F2 to save and F10 to exit when done
 mcedit ./forkano_init/scripts/01-pools/02-register-new-pool.sh
