@@ -50,12 +50,12 @@ VRF_KEY="${KEY_DIR}/vrf$ID"
 
 a0_check_pool_data() {
   ################################################ "PLEASE CHANGE THIS!!!"####################################################################################
-  #POOL_NAME="Name"
-  #POOL_DESCRIPTION="Description"
+  POOL_NAME="Name"
+  POOL_DESCRIPTION="Description"
   # Remember: Pool ticker cannot be larger than 6 characters, letters and/or numbers
-  #POOL_TICKER=""
-  #POOL_HOMEPAGE="https://homepage.your.pool"
-  #POOL_RELAY_IPV4="your.pool.ip"
+  POOL_TICKER="AAA1"
+  POOL_HOMEPAGE="https://homepage.your.pool"
+  POOL_RELAY_IPV4="127.0.0.1"
   ################################################ "PLEASE CHANGE THIS!!!"####################################################################################
 
   if [ ! ${POOL_NAME:+x} ] || [ ! ${POOL_DESCRIPTION:+x} ] || [ ! ${POOL_TICKER:+x} ] || [ ! ${POOL_RELAY_IPV4:+x} ] || [ ! ${POOL_HOMEPAGE:+x} ]; then
@@ -390,9 +390,9 @@ a7_create_scripts() {
 
 a0_check_pool_data
 a1_check_initial_funds
-a2_generate_operational_certificate
-a3_generate_delegation_certificate
-a4_submit_registration_certificate
-a5_generate_pledge_certificate
+#a2_generate_operational_certificate
+#a3_generate_delegation_certificate
+#a4_submit_registration_certificate
+#a5_generate_pledge_certificate
 a6_submit_certificates
 a7_create_scripts

@@ -10,6 +10,9 @@ tokenname1=$(echo -n "${TOKEN_NAME1}" | xxd -ps | tr -d '\n')
 tokenname2=$(echo -n "${TOKEN_NAME2}" | xxd -ps | tr -d '\n')
 tokenamount=${TOKEN_AMOUNT}
 
+ROOT=$(cat ~/forkano_root_dir)node-mainnet
+export FORKANO_NODE_SOCKET_PATH=${ROOT}/main.sock
+
 export TOKEN_PATH=$ROOT/assets
 
 set +e
