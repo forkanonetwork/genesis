@@ -71,7 +71,7 @@ Then enter the Forkano container running the node
 ./03-join-forkano_node.sh
  - You will be inside the container running the node, then
 cd ~
-./01-check-balance.sh
+./forkano_init/scripts/01-pools/01-check-balance.sh
 ```
  
 This script will show your pool address, and will check the current balance
