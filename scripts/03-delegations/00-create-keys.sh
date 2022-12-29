@@ -225,6 +225,8 @@ a2_submit_certs() {
     --tx-file tx.signed \
     --mainnet
 
+  rm protocol.json tx.signed tx.raw
+
   echo "If transaction submitted successfully then PRESS ENTER TWICE!!"
   echo "Otherwise press CTRL+C to abort"
   read REPLY
