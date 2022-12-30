@@ -54,7 +54,7 @@ read_enter "continue"
 echo "Paste here your selected pool ID"
 read POOL_ID
 
-POOL_ID="pool1y26d5lyzc986y4hccezm9ju0fwtfvear5f86w3v6ln5zvxhqd33"
+#TEST! POOL_ID="pool1y26d5lyzc986y4hccezm9ju0fwtfvear5f86w3v6ln5zvxhqd33"
 
 if [ -z $POOL_ID ]; then
     echo "You need to provide destination pool ID in format \"pool1...\""
@@ -75,7 +75,6 @@ fi
 
 a0_create_directories() {
   set +e
-  rm -r ${STAKE_BASE_DIR}
   mkdir ${STAKE_BASE_DIR} -p
   mkdir ${ADDR_DIR} -p
   mkdir ${CERTS_DIR} -p
@@ -234,7 +233,7 @@ a2_submit_certs() {
 }
 
 
-#a0_create_directories
-#a1_create_keys
+a0_create_directories
+a1_create_keys
 a1_check_initial_funds
 a2_submit_certs
