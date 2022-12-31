@@ -71,7 +71,7 @@ withdraw_rewards() {
     STAKE_ADDR=${ADDR_DIR}/staking.addr
 
     PAYMENT_SKEY=${KEYS_DIR}/payment.skey
-    STAKE_SKEY=${KEYS_DIR}/stake.skey
+    STAKE_SKEY=${KEYS_DIR}/staking.skey
 
     dstAddress=$(cat ${PAYMENT_ADDR}) 
 
