@@ -390,9 +390,9 @@ a7_create_scripts() {
 
 a0_check_pool_data
 a1_check_initial_funds
-#a2_generate_operational_certificate
-#a3_generate_delegation_certificate
-#a4_submit_registration_certificate
-#a5_generate_pledge_certificate
+a2_generate_operational_certificate
+a3_generate_delegation_certificate
+a4_submit_registration_certificate
+a5_generate_pledge_certificate
 a6_submit_certificates
 a7_create_scripts
