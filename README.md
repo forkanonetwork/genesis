@@ -58,7 +58,7 @@ Once the **"Syncing"** reaches "100%" you'll be able to perform the next **optio
 * * MANDATORY: you must forward a port directly to the machine running the docker container in order to receive incoming connections from other Forkano Nodes. If you don't allow access from the other nodes, you'll be able to operate normally but **you won't receive rewards for producing blocks!**
 * Your node could receive delegators!
 * Your node will earn rewards **in CAP (the Forkano main native asset)** for producing blocks!
-* You will have to provide your node's forkano wallet address in order to receive initial funds from us, by filling THIS FORM (available soon)
+* You will have to provide your node's forkano wallet address in order to receive initial funds from us, by filling <a href="https://forkano.net/en/registro-de-pool-de-staking/" target="blank">THIS FORM (MANDATORY!)</a>
 * You must keep an eye on your node ir order to assure propperly funtioning 
 * You will need to rotate the KES keys (script is provided, don't worry)
 
