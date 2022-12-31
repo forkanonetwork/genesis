@@ -56,7 +56,7 @@ Una vez que **"Syncing"** alcance el "100%" podrá continuar ejecutando las sigu
 * * OBLIGATORIO: debe abrir un puerto directamente a la máquina ejecutando este contenedor de docker para poder recibir conexiones entrantes de otros nodos de Forkano Network. Si no lo hace **podrá operar pero sin recibir recompensas**.
 * Su nodo podrá recibir delegaciones!
 * ¡Su nodo ganará recompensas **en CAP (el token o moneda nativa de la red Forkano)** al producir bloques! (Sólo si ha permitido conexiones entrantes de otros nodos)
-* Deberá proveer una dirección de la billetera de su nodo para poder recibir fondos iniciales. Esto lo hará completando el SIGUIENTE FORMULARIO (disponible próximamente)
+* Deberá proveer una dirección de la billetera de su nodo para poder recibir fondos iniciales. Esto lo hará completando el <a href="https://forkano.net/en/registro-de-pool-de-staking/" target="_blank">SIGUIENTE FORMULARIO (¡OBLIGATORIO!)</a>
 * Debe monitorear su nodo para asegurar el correcto funcionamiento
 * Eventualmente deberá rotar sus claves KES (no se preocupe, ¡también hay un script para ello!)
 
