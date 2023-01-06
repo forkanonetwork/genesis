@@ -50,12 +50,12 @@ VRF_KEY="${KEY_DIR}/vrf$ID"
 
 a0_check_pool_data() {
   ################################################ "PLEASE CHANGE THIS!!!"####################################################################################
-  POOL_NAME="Name"
-  POOL_DESCRIPTION="Description"
+  #POOL_NAME="Name"
+  #POOL_DESCRIPTION="Description"
   # Remember: Pool ticker cannot be larger than 6 characters, letters and/or numbers
-  POOL_TICKER="AAA1"
-  POOL_HOMEPAGE="https://homepage.your.pool"
-  POOL_RELAY_IPV4="127.0.0.1"
+  #POOL_TICKER="AAA1"
+  #POOL_HOMEPAGE="https://homepage.your.pool"
+  #POOL_RELAY_IPV4="127.0.0.1"
   ################################################ "PLEASE CHANGE THIS!!!"####################################################################################
 
   if [ ! ${POOL_NAME:+x} ] || [ ! ${POOL_DESCRIPTION:+x} ] || [ ! ${POOL_TICKER:+x} ] || [ ! ${POOL_RELAY_IPV4:+x} ] || [ ! ${POOL_HOMEPAGE:+x} ]; then
@@ -92,7 +92,7 @@ a1_check_initial_funds() {
   echo "FUNDS: ${COINS_IN_INPUT}"
   if [ -z ${COINS_IN_INPUT} ]; then
     echo "No funds yet, try again later"
-    exit 0
+    a1_ask_registration
   else
     min_funds=1000000000
     if [ ${COINS_IN_INPUT} -ge ${min_funds} ]; then
@@ -100,9 +100,18 @@ a1_check_initial_funds() {
       read REPLY
     else 
       echo "Not enough funds! Min funds needed: ${min_funds}"
-      exit 0
+      a1_ask_registration
     fi
   fi
+}
+
+a1_ask_registration() {
+  echo "You must register your pool on https://forkano.net/"
+  echo "Fill the \"Staking Pool Registration\" form providing your forkano address"
+  echo "Forkano address: " $(cat ${ADDR_DIR}/payment$ID.addr)
+  echo "And provide the pool ID too"
+  echo "POOL ID: "$(forkano-cli stake-pool id --cold-verification-key-file ${COLD_KEY}.vkey)
+  exit 0
 }
 
 a2_generate_operational_certificate() {
@@ -389,8 +398,8 @@ a7_create_scripts() {
 }
 
 a0_check_pool_data
-a1_check_initial_funds
 a2_generate_operational_certificate
+a1_check_initial_funds
 a3_generate_delegation_certificate
 a4_submit_registration_certificate
 a5_generate_pledge_certificate
