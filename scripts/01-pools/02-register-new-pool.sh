@@ -31,6 +31,11 @@ case $UNAME in
                 DATE="date";;
 esac
 
+print_line() {
+  printf '\n%*s\n\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'
+}
+
+clear
 ROOT=$(cat ~/forkano_root_dir)node-mainnet
 export FORKANO_NODE_SOCKET_PATH=${ROOT}/main.sock
 
@@ -63,38 +68,52 @@ a0_check_pool_data() {
     echo "Exiting..."
     exit 0
   else
+    print_pool_data
+    read REPLY
+  fi
+}
+
+print_pool_data() {
     echo "Preparing your pool with following info:"
+    print_line
     echo "Pool Name:" ${POOL_NAME}
     echo "Pool Description:" ${POOL_DESCRIPTION}
     echo "Pool Ticker:" ${POOL_TICKER}
     echo "Pool Homepage:" ${POOL_HOMEPAGE}
     echo "Pool IPV4:" ${POOL_RELAY_IPV4}
-    echo "Press ENTER TWICE to continue"
-    read REPLY
-    read REPLY
-  fi
+    echo "Press ENTER to continue"
+}
+
+a1_ask_registration() {
+  print_line
+  echo "You must register your pool on https://forkano.net/"
+  echo "Fill the \"Staking Pool Registration\" form providing your forkano address"
+  echo "Forkano address: " $(cat ${ADDR_DIR}/payment$ID.addr)
+  echo "And provide the pool ID too"
+  echo "POOL ID: "$(forkano-cli stake-pool id --cold-verification-key-file ${COLD_KEY}.vkey)
+  echo "REMEMBER: pool registration is mandatory in order to get © 1,000,000 delegated"
+  print_line
+  exit 0
 }
 
 a1_check_initial_funds() {
+  min_funds=1000000000
   ADDRESS=$(cat ${ADDR_DIR}/payment$ID.addr)
-  echo "PLEASE TRANSFER SOME FUNDS TO ADDRESS" $ADDRESS " FIRST!!, then press ENTER TWICE!!"
-  read REPLY
-  read REPLY
-  GREATEST_INPUT=$(forkano-cli query utxo --whole-utxo --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -n -k1 | head -n1)
-  echo "Checking balance from address" $ADDRESS
-  echo "forkano-cli query utxo --address $ADDRESS --mainnet, PRESS ENTER"
+  print_line
+  echo "Please be aware: You will need at least ${min_funds} transferred to this address"
+  echo $ADDRESS
+  echo "Press ENTER to continue"
   read REPLY
   GREATEST_INPUT=$(forkano-cli query utxo --address $ADDRESS --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1)
 
   TXID0=$(echo ${GREATEST_INPUT} | awk '{print $1}')
   COINS_IN_INPUT=$(echo ${GREATEST_INPUT} | awk '{print $2}')
-    
+
   echo "FUNDS: ${COINS_IN_INPUT}"
   if [ -z ${COINS_IN_INPUT} ]; then
     echo "No funds yet, try again later"
     a1_ask_registration
   else
-    min_funds=1000000000
     if [ ${COINS_IN_INPUT} -ge ${min_funds} ]; then
       echo "Funds arrived, press ENTER to resume..."
       read REPLY
@@ -103,15 +122,6 @@ a1_check_initial_funds() {
       a1_ask_registration
     fi
   fi
-}
-
-a1_ask_registration() {
-  echo "You must register your pool on https://forkano.net/"
-  echo "Fill the \"Staking Pool Registration\" form providing your forkano address"
-  echo "Forkano address: " $(cat ${ADDR_DIR}/payment$ID.addr)
-  echo "And provide the pool ID too"
-  echo "POOL ID: "$(forkano-cli stake-pool id --cold-verification-key-file ${COLD_KEY}.vkey)
-  exit 0
 }
 
 a2_generate_operational_certificate() {
@@ -158,7 +168,7 @@ a2_generate_operational_certificate() {
   startKesPeriod=${kesPeriod}
   echo "startKesPeriod:" ${startKesPeriod}
 
-  echo "If this data is ok then press ENTER TWICE, else press Ctrl-C"
+  echo "If this data is ok then press ENTER, else press Ctrl-C"
   read REPLY
 
   forkano-cli node issue-op-cert --kes-verification-key-file ${KEY_DIR}/kes${ID}.vkey \
@@ -169,25 +179,24 @@ a2_generate_operational_certificate() {
 }
 
 a3_generate_delegation_certificate() {
-echo "Generate Delegation Certificate (pledge) "
-echo "Press ENTER to continue or CTRL-C to abort"
-read REPLY
+  echo "Generate Delegation Certificate (pledge) "
+  echo "Press ENTER to continue or CTRL-C to abort"
+  read REPLY
 
-forkano-cli stake-address delegation-certificate \
-  --stake-verification-key-file ${STAKE_KEY}.vkey \
-  --cold-verification-key-file ${COLD_KEY}.vkey \
-  --out-file ${ADDR_DIR}/staking${ID}.deleg.cert
+  forkano-cli stake-address delegation-certificate \
+    --stake-verification-key-file ${STAKE_KEY}.vkey \
+    --cold-verification-key-file ${COLD_KEY}.vkey \
+    --out-file ${ADDR_DIR}/staking${ID}.deleg.cert
 }
 
 a4_submit_registration_certificate() {
   echo "Submit the stake registration certificate to the blockchain"
+  min_funds=1000000000
   ADDRESS=$(cat ${ADDR_DIR}/payment$ID.addr)
-  echo "PLEASE TRANSFER SOME FUNDS TO ADDRESS" $ADDRESS " FIRST!!, then press ENTER TWICE!!"
-  read REPLY
-  read REPLY
-  GREATEST_INPUT=$(forkano-cli query utxo --whole-utxo --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -n -k1 | head -n1)
-  echo "Checking balance from address" $ADDRESS
-  echo "forkano-cli query utxo --address $ADDRESS --mainnet, PRESS ENTER"
+  print_line
+  echo "Please be aware: You will need at least ${min_funds} transferred to this address"
+  echo $ADDRESS
+  echo "Press ENTER to continue"
   read REPLY
   GREATEST_INPUT=$(forkano-cli query utxo --address $ADDRESS --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1)
 
@@ -245,6 +254,7 @@ a4_submit_registration_certificate() {
     --mainnet \
     --out-file tx.signed
 
+  print_line
   echo "Submitting transaction, PRESS ENTER TWICE!!"
   read REPLY
   echo "SHURE?"
@@ -295,11 +305,7 @@ a5_generate_pledge_certificate() {
 
 a6_submit_certificates() {
   echo "Submit the pool certificate and delegation certificate to the blockchain"
-  GREATEST_INPUT=$(forkano-cli query utxo --whole-utxo --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -n -k1 | head -n1)
   ADDRESS=$(cat ${ADDR_DIR}/payment$ID.addr)
-  echo "Checking balance from address" $ADDRESS
-  echo "forkano-cli query utxo --address $ADDRESS --mainnet, PRESS ENTER"
-  read
   GREATEST_INPUT=$(forkano-cli query utxo --address $ADDRESS --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1)
 
   TXID0=$(echo ${GREATEST_INPUT} | awk '{print $1}')
@@ -397,11 +403,53 @@ a7_create_scripts() {
   read REPLY
 }
 
+a0_check_balance_loop() {
+  while :
+  do
+    clear
+    print_pool_data
+    print_line
+    ADDRESS=$(cat ${ADDR_DIR}/payment$ID.addr)
+    GREATEST_INPUT=$(forkano-cli query utxo --whole-utxo --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -n -k1 | head -n1)
+    echo "Checking balance from address" $ADDRESS
+    GREATEST_INPUT=$(forkano-cli query utxo --address $ADDRESS --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1)
+
+    TXID0=$(echo ${GREATEST_INPUT} | awk '{print $1}')
+    COINS_IN_INPUT=$(echo ${GREATEST_INPUT} | awk '{print $2}')
+
+    if [ -z ${COINS_IN_INPUT} ]; then
+      echo "No funds yet, try again later"
+    else
+      echo "Current balance: ${COINS_IN_INPUT}"
+    fi
+
+    echo "################ Notice: you need to see some differences between previous balance and current balance"
+    echo "################ If previous and current balances are equal then your transaction hasn't been confirmed (yet) and you MUST WAIT or this script will fail"
+    echo -n "Write 'c' and press enter to continue if your transaction was processed or ENTER to check again: "
+
+    read REPLY
+      if [ -z ${REPLY} ]; then
+        echo "Checking again"
+      else
+        if [ $REPLY == 'c' ]; then
+          echo "CONTINUING"
+          break
+        else
+          echo "Wrong answer"
+        fi
+      fi
+  done
+}
+
 a0_check_pool_data
-a2_generate_operational_certificate
+a0_check_balance_loop
 a1_check_initial_funds
+a2_generate_operational_certificate
 a3_generate_delegation_certificate
 a4_submit_registration_certificate
+a0_check_balance_loop
 a5_generate_pledge_certificate
 a6_submit_certificates
+a0_check_balance_loop
 a7_create_scripts
+
