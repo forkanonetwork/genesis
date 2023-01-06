@@ -1,3 +1,7 @@
 scripts/03-delegations/protocol.json
 scripts/03-delegations/tx.signed
 scripts/03-delegations/tx.raw
+scripts/01-pools/metadataPool4.json
+scripts/01-pools/protocol.json
+scripts/01-pools/tx.raw
+scripts/01-pools/tx.signed
