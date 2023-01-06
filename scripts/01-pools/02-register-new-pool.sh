@@ -93,7 +93,6 @@ a1_ask_registration() {
   echo "POOL ID: "$(forkano-cli stake-pool id --cold-verification-key-file ${COLD_KEY}.vkey)
   echo "REMEMBER: pool registration is mandatory in order to get © 1,000,000 delegated"
   print_line
-  exit 0
 }
 
 a1_check_initial_funds() {
@@ -113,6 +112,7 @@ a1_check_initial_funds() {
   if [ -z ${COINS_IN_INPUT} ]; then
     echo "No funds yet, try again later"
     a1_ask_registration
+    exit 0
   else
     if [ ${COINS_IN_INPUT} -ge ${min_funds} ]; then
       echo "Funds arrived, press ENTER to resume..."
@@ -120,6 +120,7 @@ a1_check_initial_funds() {
     else 
       echo "Not enough funds! Min funds needed: ${min_funds}"
       a1_ask_registration
+      exit 0
     fi
   fi
 }
@@ -441,6 +442,7 @@ a0_check_balance_loop() {
   done
 }
 
+a1_ask_registration
 a0_check_pool_data
 a0_check_balance_loop
 a1_check_initial_funds
