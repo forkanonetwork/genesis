@@ -1,12 +1,12 @@
-This is a tentative ROADMAP for Forkano Network
-This is NOT a calendar of tasks, just a TODO list
+# This is a tentative ROADMAP for Forkano Network
+## This is NOT a calendar of tasks, just a TODO list
 
-1 - Test phase - 1 hour epoch test
+### 1 - Test phase - 1 hour epoch test
  * Create scripts repository
     * √ New node initalization script
     * √ Withdrawal script
   * √ Docker image submission
-2 - Production Phase - 1 day epoch genesis launcg
+### 2 - Production Phase - 1 day epoch genesis launcg
   * √ Pre-launch tasks
     * √ Docker image preparation for persistance
     * √ Genesis data repo
@@ -32,15 +32,13 @@ This is NOT a calendar of tasks, just a TODO list
   * For now, there is no Forkano Explorer instance running on a reliable server
     * √ Explorer will run on a small server until we achieve the donations goal for acquiring the server. Maybe the following Contabo server will be the chosen one
         * https://contabo.com/en/vps/vps-l-ssd/?image=ubuntu.323&qty=1&contract=12&storage-type=vps-l-800-gb-ssd
-
-3 - Assets and NFTs
+### 3 - Assets and NFTs
   * Prepare scripts for
     * √ Git Repo
     * √ Tokens / Native Assets
     * NFTs
     * Tokens Metadata Server
-
-4 - Post-Production blockchain TODO LIST
+### 4 - Post-Production blockchain TODO LIST
   * Operational tools:
     * √ Forkano Explorer
     * √ Forkano-Wallet CLI (Command Line Interface) (check TTL bug notes)
@@ -56,7 +54,7 @@ This is NOT a calendar of tasks, just a TODO list
   * Smart contracts deployment
   * Fidelity programs
 
-10 - Educational and marketing campaigns?
+### - Educational and marketing campaigns?
   * Twitter
   * Telegram
   * Webpage
