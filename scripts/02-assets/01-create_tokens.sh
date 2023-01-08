@@ -97,11 +97,11 @@ if [ -z $REPLY ]; then
     echo "Ok, using previous"
 else
     if [ $REPLY == "YES" ]; then
-	echo "Generating new POLICY ID, F**K THE PREVIOUS ONE!"
-  echo "Maybe a backup would be great in the future, right?"
-  #echo "So the F**K word could be FORK :)"
-  #echo "Oh, I'm so funny"
-	generate_new_policy_id
+      echo "Generating new POLICY ID, F**K THE PREVIOUS ONE!"
+      echo "Maybe a backup would be great in the future, right?"
+      #echo "So the F**K word could be FORK :)"
+      #echo "Oh, I'm so funny"
+      generate_new_policy_id
     fi
 fi
 

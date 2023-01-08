@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "Script not finished yet... exiting now!"
+exit 0
+
 set -e
 # Unofficial bash strict mode.
 # See: http://redsymbol.net/articles/unofficial-bash-strict-mode/
