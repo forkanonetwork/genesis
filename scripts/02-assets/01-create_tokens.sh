@@ -183,7 +183,7 @@ forkano-cli query protocol-parameters \
 
 fee="0"
 output="0"
-echo "How many CAP © would you transfer with your tokens? (Recommended 100, you need to write 100 plus 6 (six) zeroes)"
+echo "How many CAP © would you transfer with your tokens? (Minimum recommended 2, you need to write 2 plus 6 (six) zeroes, e.g.: 2000000)"
 read FUNDS
 
 forkano-cli transaction build-raw \

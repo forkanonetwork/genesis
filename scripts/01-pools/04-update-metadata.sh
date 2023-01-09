@@ -448,16 +448,13 @@ a0_check_balance_loop() {
 
 a1_ask_registration
 a0_check_pool_data
-a0_check_balance_loop
-a1_check_initial_funds
-a2_generate_operational_certificate
-a3_generate_delegation_certificate
-a4_submit_registration_certificate
+#a0_check_balance_loop
+#a1_check_initial_funds
+#a2_generate_operational_certificate
+
 a0_check_balance_loop
 a5_generate_pledge_certificate
 a6_submit_certificates
-a0_check_balance_loop
-a7_create_scripts
 
 print_line
 echo "Please SEND THE FILE ${METADATA_FILE} to pools@forkano.net for metadata update!"
