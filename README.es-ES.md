@@ -4,7 +4,7 @@
 # Operando un nodo de Forkano y creando un Pool de Staking + Nodo Productor de Bloques
 ## Este repositorio incluye
     - Información "Génesis" de Forkano Network
-    - Scripts para desplegar y correr un nodo y (opcionalmente) un pool de delegaciones)
+    - Scripts para desplegar y correr un nodo y (opcionalmente) un pool de delegaciones
 
 
 ## Instalación
