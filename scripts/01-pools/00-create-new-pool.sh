@@ -134,6 +134,16 @@ a7_create_topology_files() {
         "addr": "${FORKANO_NET_URL}",
         "port": 3003,
         "valency": 1
+      },
+      {
+        "addr": "scassi.mapcom.com.ar",
+        "port": 3004,
+        "valency": 1
+      },
+      {
+        "addr": "75.119.157.227",
+        "port": 3004,
+        "valency": 1
       }
     ]
   }
@@ -212,7 +222,7 @@ a7_create_topology_files
 a8_copy_files
 a9_replace_params
 
-  echo "Now WE ARE STARTING THE NEW NODE!!!, PRESS ENTER TWICE to continue or CTRL+C to top this script now!"
+  echo "Now WE ARE STARTING THE NEW NODE!!!, PRESS ENTER TWICE to continue or CTRL+C to stop this script now!"
   read REPLY
   read REPLY
   sh ${NODE_DIR}.sh

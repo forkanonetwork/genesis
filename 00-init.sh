@@ -1,33 +1,3 @@
-################## IF YOU ARE RUNNING THIS SCRIPT FOR THE FIRST TIME ##################
-This script will create /home/santiago/genesis/../data directory for persistant data from the forkano node
-So you can easily play/update/delete/redownload the forkano_node docker image
-and keep your node running ASAP
-################## IF YOU ARE RUNNING THIS SCRIPT FOR THE FIRST TIME ##################
-
-
-
-
-################## IF YOU ALREADY RUN THIS SCRIPT BEFORE ##################
-Attention/Warning/Notice/Cuidado
-This script will erase all data/db/pool info
-If you have/had a pool running in /home/santiago/genesis/../data and don't have a backup of your pool
-you will lose all access to previous rewards and private keys!
-################## IF YOU ALREADY RUN THIS SCRIPT BEFORE ##################
-
-
-
-If you want to continue then write YES (uppercase only) and press ENTER, otherwise just press Ctrl+C or ENTER
-YES
-© I'll ask for superuser password ONCE for data deletion
-Docker is accessible, continuing...
-^C
-santiago@UBNT-TUF:~/genesis$ 
-
-
-
-
-santiago@UBNT-TUF:~$ 
-santiago@UBNT-TUF:~/genesis$ cat 00-init.sh 
 #!/bin/bash 
 source common_vars.sh
 
