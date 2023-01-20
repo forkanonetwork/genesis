@@ -262,7 +262,7 @@ a4_submit_registration_certificate() {
   print_line
   echo "Submitting transaction, PRESS ENTER TWICE!!"
   read REPLY
-  echo "SHURE?"
+  echo "SURE?"
   read REPLY
   forkano-cli transaction submit \
     --tx-file tx.signed \

@@ -2,23 +2,27 @@
 
 set -e
 
-ROOT=~/git/forkano-babbage/private-mainnet
+if [[ $# -ne 2 ]]; then
+  echo "Error: Invalid number of arguments. Please provide funds and destination address as arguments."
+  echo "Usage: send-fund <amount in lovelaces> <destination_address>"
+  exit 1
+fi
 
-echo "Sending $1 funds from node $2 to address $3"
+echo "Sending $1 funds from node to address $2"
 echo "Press ENTER TWICE to confirm"
 read REPLY
 read REPLY
-ID=$2
+ID=4
 
+ROOT=~/git/forkano-babbage/node-mainnet/node-spo${ID}
 
-export NODE_SOCKET_PATH=$ROOT/node-spo${ID}/node.sock
+export FORKANO_NODE_SOCKET_PATH=$ROOT/node.sock
 
-address_to=$3
+address_to=$2
 address_from=$(cat ${ROOT}/addresses/payment${ID}.addr)
 
   forkano-cli query utxo --address $address_from  --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1
   GREATEST_INPUT=$(forkano-cli query utxo --address $address_from --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1)
-  #GREATEST_INPUT=$(forkano-cli query utxo --whole-utxo --mainnet | tail -n +3 | awk '{printf "%s#%s %s \n", $1 , $2, $3}' | sort -rn -k2 | head -n1)
 
   echo "GREATEST INPUT:" $GREATEST_INPUT
 
@@ -47,34 +51,32 @@ funds=1000000000
 funds=$1
 
 echo "Calculated fee:" $fee
-output=$(expr $COINS_IN_INPUT - $funds - $fee)
+echo "COINS: " $COINS_IN_INPUT
+echo "FUNDS: " $funds
+
+
+#output=$(expr $COINS_IN_INPUT - $funds - $fee)
+output=$(bc <<< "$COINS_IN_INPUT - $funds - $fee")
 echo $address_to+$output
 
 echo "Sending ${funds} to address:" $address_to
 
+change=""
+if [ $output -gt 0 ]
+then
+  echo "Building output"
+  change="$address_from+$output"
+fi
+
 forkano-cli transaction build-raw \
  --fee $fee \
  --tx-in $TXID0 \
- --tx-out $address_to+$funds \
- --tx-out $address_from+$output \
+ --tx-out $address_to+$funds $change\
  --out-file matx.raw
 
 forkano-cli transaction sign  \
---signing-key-file $ROOT/stake-delegator-keys/payment2.skey \
---signing-key-file $ROOT/stake-delegator-keys/staking1.skey \
---signing-key-file $ROOT/stake-delegator-keys/staking2.skey \
---signing-key-file $ROOT/stake-delegator-keys/staking3.skey \
---signing-key-file $ROOT/stake-delegator-keys/payment3.skey \
---signing-key-file $ROOT/stake-delegator-keys/payment1.skey \
---signing-key-file $ROOT/pools/cold3.skey \
---signing-key-file $ROOT/pools/cold2.skey \
---signing-key-file $ROOT/pools/cold1.skey \
---signing-key-file $ROOT/genesis-keys/genesis3.skey \
---signing-key-file $ROOT/genesis-keys/genesis1.skey \
---signing-key-file $ROOT/genesis-keys/genesis2.skey \
---signing-key-file $ROOT/delegate-keys/delegate2.skey \
---signing-key-file $ROOT/delegate-keys/delegate3.skey \
---signing-key-file $ROOT/delegate-keys/delegate1.skey \
+    --signing-key-file $ROOT/cold-keys/cold${ID}.skey \
+    --signing-key-file $ROOT/keys/payment${ID}.skey \
     --mainnet --tx-body-file matx.raw  \
     --out-file matx.signed
 
@@ -85,4 +87,3 @@ echo "SURE? ENTER AGAIN!"
 read
 
 forkano-cli transaction submit --tx-file matx.signed --mainnet
-
