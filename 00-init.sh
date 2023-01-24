@@ -52,6 +52,7 @@ fi
 # Create data directory and set permissions
 echo -e "\033[1;33m$DELETE_DATA_MSG\033[0m"
 sudo rm -r ${DATA_DIR}
+sudo chmod -R o+w scripts
 mkdir ${DATA_DIR}
 chmod 777 ${DATA_DIR}
 
