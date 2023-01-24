@@ -257,7 +257,7 @@ a4_submit_registration_certificate() {
     --signing-key-file ${STAKE_KEY}.skey \
     --signing-key-file ${COLD_KEY}.skey \
     --mainnet \
-    --out-file tx.signed
+    --out-file /tmp/tx.signed
 
   print_line
   echo "Submitting transaction, PRESS ENTER TWICE!!"
@@ -265,7 +265,7 @@ a4_submit_registration_certificate() {
   echo "SURE?"
   read REPLY
   forkano-cli transaction submit \
-    --tx-file tx.signed \
+    --tx-file /tmp/tx.signed \
     --mainnet
 
   echo "If transaction submitted successfully then PRESS ENTER TWICE!!"
@@ -367,12 +367,12 @@ a6_submit_certificates() {
     --signing-key-file ${STAKE_KEY}.skey \
     --signing-key-file ${COLD_KEY}.skey \
     --mainnet \
-    --out-file tx.signed
+    --out-file /tmp/tx.signed
 
   echo "Submitting transaction, PRESS ENTER TWICE!!"
   read REPLY
   forkano-cli transaction submit \
-    --tx-file tx.signed \
+    --tx-file /tmp/tx.signed \
     --mainnet
 
   echo "If transaction submitted successfully then PRESS ENTER TWICE!!"
