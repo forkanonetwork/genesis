@@ -214,7 +214,7 @@ a4_submit_registration_certificate() {
     --tx-out ${ADDRESS}+0 \
     --ttl 0 \
     --fee 0 \
-    --out-file tx.raw \
+    --out-file /tmp/tx.raw \
     --certificate-file ${ADDR_DIR}/staking${ID}.reg.cert \
 
   forkano-cli query protocol-parameters \
@@ -223,7 +223,7 @@ a4_submit_registration_certificate() {
 
   echo "Calculating min fee:"
   FEE=$(forkano-cli transaction calculate-min-fee \
-    --tx-body-file tx.raw \
+    --tx-body-file /tmp/tx.raw \
     --tx-in-count 1 \
     --tx-out-count 2 \
     --mainnet \
@@ -248,11 +248,11 @@ a4_submit_registration_certificate() {
     --invalid-hereafter $(( ${currentSlot} +10000)) \
     --fee $FEE \
     --certificate-file ${ADDR_DIR}/staking${ID}.reg.cert \
-    --out-file tx.raw
+    --out-file /tmp/tx.raw
 
   echo "Signing transaction"
   forkano-cli transaction sign \
-    --tx-body-file tx.raw \
+    --tx-body-file /tmp/tx.raw \
     --signing-key-file ${PAYMENT_KEY}.skey \
     --signing-key-file ${STAKE_KEY}.skey \
     --signing-key-file ${COLD_KEY}.skey \
@@ -322,7 +322,7 @@ a6_submit_certificates() {
     --tx-out ${ADDRESS}+0 \
     --ttl 0 \
     --fee 0 \
-    --out-file tx.raw \
+    --out-file /tmp/tx.raw \
     --certificate-file ${ADDR_DIR}/staking$ID.deleg.cert \
     --certificate-file ${NODE_DIR}/pool-registration$ID.cert
 
@@ -332,7 +332,7 @@ a6_submit_certificates() {
 
   echo "Calculating min fee:"
   FEE=$(forkano-cli transaction calculate-min-fee \
-    --tx-body-file tx.raw \
+    --tx-body-file /tmp/tx.raw \
     --tx-in-count 1 \
     --tx-out-count 2 \
     --mainnet \
@@ -358,11 +358,11 @@ a6_submit_certificates() {
     --fee $FEE \
     --certificate-file ${NODE_DIR}/pool-registration$ID.cert \
     --certificate-file ${ADDR_DIR}/staking$ID.deleg.cert \
-    --out-file tx.raw
+    --out-file /tmp/tx.raw
 
   echo "Signing transaction"
   forkano-cli transaction sign \
-    --tx-body-file tx.raw \
+    --tx-body-file /tmp/tx.raw \
     --signing-key-file ${PAYMENT_KEY}.skey \
     --signing-key-file ${STAKE_KEY}.skey \
     --signing-key-file ${COLD_KEY}.skey \
