@@ -214,7 +214,7 @@ a4_submit_registration_certificate() {
     --tx-out ${ADDRESS}+0 \
     --ttl 0 \
     --fee 0 \
-    --out-file /tmp/tx.raw \
+    --out-file tx.raw \
     --certificate-file ${ADDR_DIR}/staking${ID}.reg.cert \
 
   forkano-cli query protocol-parameters \
@@ -223,7 +223,7 @@ a4_submit_registration_certificate() {
 
   echo "Calculating min fee:"
   FEE=$(forkano-cli transaction calculate-min-fee \
-    --tx-body-file /tmp/tx.raw \
+    --tx-body-file tx.raw \
     --tx-in-count 1 \
     --tx-out-count 2 \
     --mainnet \
@@ -248,16 +248,16 @@ a4_submit_registration_certificate() {
     --invalid-hereafter $(( ${currentSlot} +10000)) \
     --fee $FEE \
     --certificate-file ${ADDR_DIR}/staking${ID}.reg.cert \
-    --out-file /tmp/tx.raw
+    --out-file tx.raw
 
   echo "Signing transaction"
   forkano-cli transaction sign \
-    --tx-body-file /tmp/tx.raw \
+    --tx-body-file tx.raw \
     --signing-key-file ${PAYMENT_KEY}.skey \
     --signing-key-file ${STAKE_KEY}.skey \
     --signing-key-file ${COLD_KEY}.skey \
     --mainnet \
-    --out-file /tmp/tx.signed
+    --out-file tx.signed
 
   print_line
   echo "Submitting transaction, PRESS ENTER TWICE!!"
@@ -265,7 +265,7 @@ a4_submit_registration_certificate() {
   echo "SURE?"
   read REPLY
   forkano-cli transaction submit \
-    --tx-file /tmp/tx.signed \
+    --tx-file tx.signed \
     --mainnet
 
   echo "If transaction submitted successfully then PRESS ENTER TWICE!!"
@@ -322,7 +322,7 @@ a6_submit_certificates() {
     --tx-out ${ADDRESS}+0 \
     --ttl 0 \
     --fee 0 \
-    --out-file /tmp/tx.raw \
+    --out-file tx.raw \
     --certificate-file ${ADDR_DIR}/staking$ID.deleg.cert \
     --certificate-file ${NODE_DIR}/pool-registration$ID.cert
 
@@ -332,7 +332,7 @@ a6_submit_certificates() {
 
   echo "Calculating min fee:"
   FEE=$(forkano-cli transaction calculate-min-fee \
-    --tx-body-file /tmp/tx.raw \
+    --tx-body-file tx.raw \
     --tx-in-count 1 \
     --tx-out-count 2 \
     --mainnet \
@@ -358,21 +358,21 @@ a6_submit_certificates() {
     --fee $FEE \
     --certificate-file ${NODE_DIR}/pool-registration$ID.cert \
     --certificate-file ${ADDR_DIR}/staking$ID.deleg.cert \
-    --out-file /tmp/tx.raw
+    --out-file tx.raw
 
   echo "Signing transaction"
   forkano-cli transaction sign \
-    --tx-body-file /tmp/tx.raw \
+    --tx-body-file tx.raw \
     --signing-key-file ${PAYMENT_KEY}.skey \
     --signing-key-file ${STAKE_KEY}.skey \
     --signing-key-file ${COLD_KEY}.skey \
     --mainnet \
-    --out-file /tmp/tx.signed
+    --out-file tx.signed
 
   echo "Submitting transaction, PRESS ENTER TWICE!!"
   read REPLY
   forkano-cli transaction submit \
-    --tx-file /tmp/tx.signed \
+    --tx-file tx.signed \
     --mainnet
 
   echo "If transaction submitted successfully then PRESS ENTER TWICE!!"

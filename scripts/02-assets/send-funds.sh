@@ -65,13 +65,13 @@ change=""
 if [ $output -gt 0 ]
 then
   echo "Building output"
-  change="$address_from+$output"
+  change="--tx-out $address_from+$output"
 fi
 
 forkano-cli transaction build-raw \
  --fee $fee \
  --tx-in $TXID0 \
- --tx-out $address_to+$funds $change\
+ --tx-out $address_to+$funds $change \
  --out-file matx.raw
 
 forkano-cli transaction sign  \
