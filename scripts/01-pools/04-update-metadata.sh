@@ -445,7 +445,7 @@ a0_check_balance_loop() {
   done
 }
 
-a1_ask_registration
+#a1_ask_registration
 a0_check_pool_data
 #a0_check_balance_loop
 #a1_check_initial_funds
