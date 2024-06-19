@@ -134,16 +134,6 @@ a7_create_topology_files() {
         "addr": "${FORKANO_NET_URL}",
         "port": 3003,
         "valency": 1
-      },
-      {
-        "addr": "scassi.mapcom.com.ar",
-        "port": 3004,
-        "valency": 1
-      },
-      {
-        "addr": "75.119.157.227",
-        "port": 3004,
-        "valency": 1
       }
     ]
   }

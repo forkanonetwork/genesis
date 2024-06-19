@@ -60,7 +60,8 @@ fix_docker() {
   echo -e "\033[1;33m$FIX_DOCKER_MSG\033[0m"
   read -p "$PRESS_ENTER_PROMPT" REPLY
   sudo groupadd docker
-  sudo usermod -aG docker ${USER}
+  sudo usermod -aG docker ${USER}ç
+  sudo chmod 666 /var/run/docker.sock
   echo -e "\033[1;33m$LOGOUT_MSG\033[0m"
   exit 0
 }
